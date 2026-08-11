@@ -1,0 +1,198 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ==========================================================================
+   Design tokens — Sunu Inovation
+   Seules les couleurs et les polices sont héritées de l'ancien projet.
+   ========================================================================== */
+
+@theme {
+  /* --- Marque ------------------------------------------------------------ */
+  --color-primary: #ed6f1c;
+  --color-primary-dark: #c85a12;
+  --color-primary-soft: #fdf1e7;
+  --color-secondary: #f9cf5d;
+  --color-secondary-soft: #fef8e8;
+
+  --color-ink: #1b1b1a;
+  --color-ink-soft: #4a4744;
+  --color-ink-muted: #857f78;
+  --color-paper: #ffffff;
+  --color-mist: #f6f4f1;
+  --color-line: #e6e1da;
+
+  /* --- Tokens sémantiques (compatibles shadcn/ui) ------------------------ */
+  --color-background: #ffffff;
+  --color-foreground: #1b1b1a;
+  --color-card: #ffffff;
+  --color-card-foreground: #1b1b1a;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #1b1b1a;
+  --color-primary-foreground: #ffffff;
+  --color-secondary-foreground: #1b1b1a;
+  --color-muted: #f6f4f1;
+  --color-muted-foreground: #6b665f;
+  --color-accent: #fdf1e7;
+  --color-accent-foreground: #c85a12;
+  --color-destructive: #c2321f;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #e6e1da;
+  --color-input: #e6e1da;
+  --color-ring: #ed6f1c;
+
+  /* --- Typographie ------------------------------------------------------- */
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* --- Rayons ----------------------------------------------------------- */
+  --radius-xs: 0.375rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+  /* --- Animations ------------------------------------------------------- */
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-rise: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-glow: glow 14s ease-in-out infinite;
+  --animate-accordion-down: accordion-down 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-accordion-up: accordion-up 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(2%, -3%, 0) scale(1.08);
+    opacity: 0.8;
+  }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    @apply bg-primary text-white;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+}
+
+/* ==========================================================================
+   Utilitaires maison
+   ========================================================================== */
+
+/* Équilibrage typographique des titres. */
+@utility text-balance-title {
+  text-wrap: balance;
+}
+
+/* Masque de fondu pour les bandeaux défilants. */
+@utility mask-fade-x {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+/* Réglages typographiques des blocs de texte long. */
+@utility prose-ink {
+  & p {
+    @apply text-base leading-relaxed text-ink-soft md:text-lg;
+  }
+
+  & p + p {
+    @apply mt-4;
+  }
+
+  & strong {
+    @apply font-semibold text-ink;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-marquee,
+  .animate-glow {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
