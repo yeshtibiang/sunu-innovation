@@ -34,16 +34,19 @@ export default function TeamPage() {
       {/* Membres ----------------------------------------------------------- */}
       <Section className="bg-paper">
         <Container size="wide">
-          <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
             {team.map((member, index) => (
               <li key={member.name}>
-                <Reveal delay={index * 90} className="group flex flex-col gap-5">
+                <Reveal
+                  delay={index * 90}
+                  className="group flex h-full flex-col gap-5"
+                >
                   <div className="relative aspect-4/5 overflow-hidden rounded-3xl border border-line bg-mist">
                     <Image
                       src={member.image}
                       alt={`Portrait de ${member.name}`}
                       fill
-                      sizes="(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw"
+                      sizes="(min-width: 1024px) 24vw, (min-width: 640px) 46vw, 92vw"
                       className="object-cover object-[center_22%] transition-transform duration-700 group-hover:scale-[1.04]"
                     />
                     <div
@@ -51,15 +54,16 @@ export default function TeamPage() {
                       className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/60 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                     />
                   </div>
-                  <div className="flex flex-col gap-1.5">
-                    <p className="font-mono text-[0.6875rem] tracking-[0.2em] text-primary uppercase">
-                      {member.role}
-                    </p>
-                    <h2 className="font-display text-xl font-bold text-ink md:text-2xl">
+                  <div className="flex flex-col gap-2.5">
+                    <h2 className="font-display text-lg font-bold text-ink md:text-xl">
                       {member.name}
                     </h2>
-                    <p className="text-sm leading-relaxed text-ink-soft">
-                      {member.focus}
+                    <span
+                      aria-hidden="true"
+                      className="h-px w-8 bg-line transition-all duration-500 group-hover:w-14 group-hover:bg-primary"
+                    />
+                    <p className="font-mono text-[0.6875rem] leading-relaxed tracking-[0.16em] text-primary uppercase">
+                      {member.role}
                     </p>
                   </div>
                 </Reveal>

@@ -20,7 +20,7 @@ export default function ClientsPage() {
       <PageHero
         eyebrow="Réalisations"
         title="Les marques qui nous font confiance"
-        description="Restauration, agro-industrie, voyage, formation : nos dispositifs s'adaptent au secteur, jamais l'inverse."
+        description="Restauration, agro-industrie, formation, santé, édition : nos dispositifs s'adaptent au secteur, jamais l'inverse."
         crumbs={[{ label: "Clients" }]}
       />
 

@@ -2,13 +2,17 @@ import type { Metadata } from "next";
 
 // Polices auto-hébergées (identiques à l'ancien projet, sans dépendance
 // à Google Fonts) : Bricolage Grotesque, Inter et IBM Plex Mono.
-import "@fontsource-variable/bricolage-grotesque";
+// Bricolage est chargée via `wdth.css` : même famille, même plage de graisses
+// (200-800), mais l'axe de chasse (75-100 %) est en plus disponible — le titre
+// du hero s'en sert pour opposer une chasse resserrée à un mot pleine largeur.
+import "@fontsource-variable/bricolage-grotesque/wdth.css";
 import "@fontsource-variable/inter";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
 
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { ScrollToTop } from "@/components/shared/scroll-to-top";
 import { site } from "@/data/site";
 
 import "./globals.css";
@@ -62,6 +66,9 @@ export default function RootLayout({
           {children}
         </main>
         <SiteFooter />
+        {/* En dernier : les effets des frères s'exécutent dans l'ordre de
+            l'arbre, donc le retour en haut passe après ceux du contenu. */}
+        <ScrollToTop />
       </body>
     </html>
   );

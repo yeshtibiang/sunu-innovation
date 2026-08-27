@@ -2,27 +2,28 @@ export type TeamMember = {
   name: string;
   role: string;
   image: string;
-  focus: string;
 };
 
 export const team: TeamMember[] = [
   {
     name: "Artin Babingui",
-    role: "Social Media Manager",
-    image: "/images/team/artin.png",
-    focus: "Ligne éditoriale, community management, campagnes social ads.",
+    role: "Co-fondateur",
+    image: "/images/team/artin.webp",
   },
   {
-    name: "Yeshua Doumgou",
-    role: "Développeur Web",
-    image: "/images/team/yeshua.png",
-    focus: "Sites web performants, intégrations et automatisations.",
+    name: "Tibiang Yeshua Doumgou",
+    role: "Co-fondateur et CTO",
+    image: "/images/team/yeshua.jpg",
   },
   {
     name: "Chancel Obessa",
-    role: "Designer Graphique",
-    image: "/images/team/chancel.png",
-    focus: "Identité visuelle, infographie et direction artistique.",
+    role: "Co-fondateur et Designer Graphique",
+    image: "/images/team/chancel.webp",
+  },
+  {
+    name: "Amédé Nadjilem Londoul",
+    role: "Co-fondateur",
+    image: "/images/team/amede.webp",
   },
 ];
 

@@ -7,6 +7,7 @@ import { ServicesGrid } from "@/components/sections/services-grid";
 import { ClientMarquee } from "@/components/sections/marquee";
 import { Process } from "@/components/sections/process";
 import { CtaBand } from "@/components/sections/cta-band";
+import { CountUp } from "@/components/shared/count-up";
 import { Reveal } from "@/components/shared/reveal";
 import {
   Container,
@@ -139,8 +140,8 @@ export default function HomePage() {
           <dl className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-3">
             {stats.map((stat, index) => (
               <Reveal key={stat.label} delay={index * 80}>
-                <dt className="font-display text-4xl font-extrabold tracking-tight text-white md:text-5xl">
-                  {stat.value}
+                <dt className="font-display text-4xl font-extrabold tracking-tight text-white tabular-nums md:text-5xl">
+                  <CountUp value={stat.value} delay={index * 0.08} />
                 </dt>
                 <dd className="mt-2 text-sm text-white/55">{stat.label}</dd>
               </Reveal>

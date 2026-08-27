@@ -58,6 +58,8 @@
   /* --- Animations ------------------------------------------------------- */
   --animate-marquee: marquee 42s linear infinite;
   --animate-rise: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-line-rise: line-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-swipe: swipe 0.5s cubic-bezier(0.65, 0, 0.35, 1) both;
   --animate-glow: glow 14s ease-in-out infinite;
   --animate-accordion-down: accordion-down 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   --animate-accordion-up: accordion-up 0.22s cubic-bezier(0.16, 1, 0.3, 1);
@@ -98,6 +100,27 @@
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Le titre du hero se dévoile ligne par ligne : chaque ligne remonte depuis
+   le bas de sa boîte de recadrage (.line-clip). */
+@keyframes line-rise {
+  from {
+    transform: translate3d(0, 110%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Trait de surlignage qui se trace de gauche à droite. */
+@keyframes swipe {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
 
@@ -161,6 +184,16 @@
     black 92%,
     transparent
   );
+}
+
+/* Boîte de recadrage d'une ligne de titre : masque la ligne tant qu'elle n'est
+   pas remontée. Le padding réserve la place des jambages (g, j, p) et la marge
+   négative l'annule, pour ne pas modifier l'interlignage. */
+@utility line-clip {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
 }
 
 /* Réglages typographiques des blocs de texte long. */
