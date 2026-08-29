@@ -87,7 +87,7 @@ export function Hero() {
               className="animate-rise mt-5 font-mono text-[0.6875rem] tracking-[0.14em] text-ink-muted uppercase"
               style={{ animationDelay: `${BEAT.caption}ms` }}
             >
-              Devis détaillé sous 48&nbsp;h · sans engagement
+              Devis détaillé sous 24&nbsp;h · sans engagement
             </p>
           </div>
 

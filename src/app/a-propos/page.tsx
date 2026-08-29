@@ -162,7 +162,7 @@ export default function AboutPage() {
                   </p>
                   <dl className="grid grid-cols-2 gap-6 border-t border-white/25 pt-8">
                     {[
-                      { value: "48h", label: "délai de réponse" },
+                      { value: "24h", label: "délai de réponse" },
                       { value: "6", label: "expertises internes" },
                       // { value: "4", label: "pays couverts" }, // pas encore présents dans ces pays
                       { value: "1", label: "interlocuteur dédié" },

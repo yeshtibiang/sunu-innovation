@@ -12,7 +12,7 @@ import {
 } from "motion/react";
 
 type CountUpProps = Omit<React.ComponentProps<"span">, "children"> & {
-  /** Valeur telle qu'écrite dans les données, ex. « 6 », « 30+ », « 48h ». */
+  /** Valeur telle qu'écrite dans les données, ex. « 6 », « 30+ », « 24h ». */
   value: string;
   /** Durée du décompte, en secondes. */
   duration?: number;

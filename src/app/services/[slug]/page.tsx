@@ -144,7 +144,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-ink-soft">
                   Décrivez votre contexte en 5 minutes, nous revenons vers vous
-                  sous 48&nbsp;heures.
+                  sous 24&nbsp;heures.
                 </p>
                 <Button asChild className="mt-4 w-full">
                   <Link href="/devis">

@@ -3,8 +3,7 @@
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
+import { AlertCircle, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,28 +11,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { site } from "@/data/site";
-
-const schema = z.object({
-  civility: z.enum(["M.", "Mme"], {
-    message: "Veuillez choisir une civilité.",
-  }),
-  firstName: z.string().trim().min(2, "Au moins 2 caractères."),
-  lastName: z.string().trim().min(2, "Au moins 2 caractères."),
-  email: z.string().trim().email("Adresse e-mail invalide."),
-  phone: z
-    .string()
-    .trim()
-    .optional()
-    .refine(
-      (value) =>
-        !value || /^\d{6,15}$/.test(value.replace(/[\s\-().+]/g, "")),
-      "Numéro invalide (6 à 15 chiffres).",
-    ),
-  company: z.string().trim().optional(),
-  message: z.string().trim().min(20, "Décrivez votre besoin en 20 caractères minimum."),
-});
-
-type ContactValues = z.infer<typeof schema>;
+import { contactSchema, type ContactValues } from "@/lib/schemas/forms";
 
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
@@ -42,6 +20,7 @@ function FieldError({ message }: { message?: string }) {
 
 export function ContactForm() {
   const [sent, setSent] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
   const {
     register,
@@ -50,7 +29,7 @@ export function ContactForm() {
     watch,
     formState: { errors, isSubmitting },
   } = useForm<ContactValues>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(contactSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -58,29 +37,34 @@ export function ContactForm() {
       phone: "",
       company: "",
       message: "",
+      website: "",
     },
   });
 
   const civility = watch("civility");
 
   const onSubmit = async (values: ContactValues) => {
-    // TODO: remplacer par un appel API (route handler, Resend, Formspree…).
-    const body = [
-      `${values.civility} ${values.firstName} ${values.lastName}`,
-      values.company ? `Société : ${values.company}` : null,
-      `E-mail : ${values.email}`,
-      values.phone ? `Téléphone : ${values.phone}` : null,
-      "",
-      values.message,
-    ]
-      .filter(Boolean)
-      .join("\n");
+    setError(null);
 
-    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
-      `Demande de contact — ${values.firstName} ${values.lastName}`,
-    )}&body=${encodeURIComponent(body)}`;
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...values, kind: "contact" }),
+      });
 
-    setSent(true);
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        setError(data?.error ?? "L'envoi a échoué. Réessayez dans un instant.");
+        return;
+      }
+
+      setSent(true);
+    } catch {
+      setError(
+        "Impossible de joindre le serveur. Vérifiez votre connexion et réessayez.",
+      );
+    }
   };
 
   if (sent) {
@@ -88,11 +72,11 @@ export function ContactForm() {
       <div className="flex flex-col items-start gap-4 rounded-3xl border border-line bg-mist p-8 md:p-12">
         <CheckCircle2 className="size-8 text-primary" />
         <h2 className="font-display text-2xl font-bold text-ink">
-          Message prêt à partir
+          Message envoyé
         </h2>
         <p className="max-w-md text-[0.9375rem] leading-relaxed text-ink-soft">
-          Votre logiciel de messagerie s&apos;est ouvert avec le message
-          pré-rempli. Si rien ne s&apos;est passé, écrivez-nous directement à{" "}
+          Merci, nous avons bien reçu votre demande et vous répondons sous
+          24&nbsp;heures ouvrées. Une précision à ajouter&nbsp;? Écrivez-nous à{" "}
           <a
             href={`mailto:${site.email}`}
             className="font-medium text-primary hover:underline"
@@ -114,6 +98,16 @@ export function ContactForm() {
       noValidate
       className="flex flex-col gap-8"
     >
+      {/* Champ piège anti-bots : invisible et hors du parcours clavier. */}
+      <input
+        {...register("website")}
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        className="hidden"
+        aria-hidden="true"
+      />
+
       <div className="flex flex-col gap-2.5">
         <Label>Civilité *</Label>
         <RadioGroup
@@ -206,6 +200,25 @@ export function ContactForm() {
         />
         <FieldError message={errors.message?.message} />
       </div>
+
+      {error && (
+        <div
+          role="alert"
+          className="flex items-start gap-3 rounded-2xl border border-destructive/30 bg-destructive/5 p-4"
+        >
+          <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />
+          <p className="text-sm leading-relaxed text-ink-soft">
+            {error} Vous pouvez aussi nous écrire à{" "}
+            <a
+              href={`mailto:${site.email}`}
+              className="font-medium text-primary hover:underline"
+            >
+              {site.email}
+            </a>
+            .
+          </p>
+        </div>
+      )}
 
       <div className="flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
         <p className="max-w-sm text-xs leading-relaxed text-ink-muted">

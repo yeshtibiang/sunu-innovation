@@ -25,5 +25,5 @@ export const stats = [
   { value: "6", label: "expertises complémentaires" },
   // { value: "4", label: "pays de présence" }, // pas encore présents dans ces pays
   { value: "10+", label: "projets accompagnés" },
-  { value: "48h", label: "pour recevoir votre devis" },
+  { value: "24h", label: "pour recevoir votre devis" },
 ] as const;

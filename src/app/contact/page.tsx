@@ -10,14 +10,14 @@ import { site } from "@/data/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contactez Sunu Innovation : e-mail, téléphone et formulaire. Réponse sous 48 heures.",
+    "Contactez Sunu Innovation : e-mail, téléphone et formulaire. Réponse sous 24 heures.",
 };
 
 const infos = [
   { icon: Mail, label: "E-mail", value: site.email, href: `mailto:${site.email}` },
   { icon: Phone, label: "Téléphone", value: site.phone, href: `tel:${site.phoneHref}` },
   { icon: MapPin, label: "Bureau", value: site.address },
-  { icon: Clock, label: "Délai de réponse", value: "48 heures ouvrées" },
+  { icon: Clock, label: "Délai de réponse", value: "24 heures ouvrées" },
 ];
 
 export default function ContactPage() {
@@ -75,7 +75,7 @@ export default function ContactPage() {
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-soft">
                   Passez directement par le formulaire de devis : trois étapes,
-                  cinq minutes, et une réponse chiffrée sous 48&nbsp;heures.
+                  cinq minutes, et une réponse chiffrée sous 24&nbsp;heures.
                 </p>
                 <Link
                   href="/devis"

@@ -23,7 +23,7 @@ export function SiteFooter() {
               Une idée, un besoin, une urgence&nbsp;?
             </h2>
             <p className="mt-4 text-white/60">
-              Écrivez-nous, nous revenons vers vous sous 48&nbsp;heures avec une
+              Écrivez-nous, nous revenons vers vous sous 24&nbsp;heures avec une
               première lecture de votre projet.
             </p>
           </div>

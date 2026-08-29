@@ -3,8 +3,15 @@
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { ArrowLeft, ArrowRight, Check, CheckCircle2, Send } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowLeft,
+  ArrowRight,
+  Check,
+  CheckCircle2,
+  Loader2,
+  Send,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -20,6 +27,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { services } from "@/data/services";
 import { site } from "@/data/site";
+import { quoteSchema, type QuoteValues } from "@/lib/schemas/forms";
 import { cn } from "@/lib/utils";
 
 const BUDGETS = [
@@ -37,26 +45,6 @@ const DEADLINES = [
   "Pas encore de date",
 ];
 
-const schema = z.object({
-  services: z.array(z.string()).min(1, "Sélectionnez au moins un service."),
-  budget: z.string().min(1, "Choisissez une fourchette de budget."),
-  deadline: z.string().min(1, "Indiquez une échéance."),
-  project: z
-    .string()
-    .trim()
-    .min(30, "Quelques phrases de plus nous aideront (30 caractères minimum)."),
-  existing: z.string().trim().optional(),
-  company: z.string().trim().min(2, "Indiquez le nom de votre structure."),
-  fullName: z.string().trim().min(2, "Indiquez votre nom."),
-  email: z.string().trim().email("Adresse e-mail invalide."),
-  phone: z.string().trim().optional(),
-  consent: z.literal(true, {
-    message: "Merci d'accepter le traitement de vos données.",
-  }),
-});
-
-type QuoteValues = z.infer<typeof schema>;
-
 const STEPS = [
   { title: "Votre besoin", fields: ["services", "budget", "deadline"] },
   { title: "Votre projet", fields: ["project", "existing"] },
@@ -71,6 +59,7 @@ function FieldError({ message }: { message?: string }) {
 export function QuoteForm() {
   const [step, setStep] = React.useState(0);
   const [sent, setSent] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
   const {
     register,
@@ -78,9 +67,9 @@ export function QuoteForm() {
     setValue,
     watch,
     trigger,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<QuoteValues>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(quoteSchema),
     mode: "onTouched",
     defaultValues: {
       services: [],
@@ -92,6 +81,7 @@ export function QuoteForm() {
       fullName: "",
       email: "",
       phone: "",
+      website: "",
     },
   });
 
@@ -114,30 +104,28 @@ export function QuoteForm() {
     if (valid) setStep((current) => Math.min(current + 1, STEPS.length - 1));
   };
 
-  const onSubmit = (values: QuoteValues) => {
-    const body = [
-      `Services : ${values.services.join(", ")}`,
-      `Budget : ${values.budget}`,
-      `Échéance : ${values.deadline}`,
-      "",
-      "Projet :",
-      values.project,
-      values.existing ? `\nExistant / liens : ${values.existing}` : "",
-      "",
-      `Structure : ${values.company}`,
-      `Contact : ${values.fullName}`,
-      `E-mail : ${values.email}`,
-      values.phone ? `Téléphone : ${values.phone}` : "",
-    ]
-      .filter(Boolean)
-      .join("\n");
+  const onSubmit = async (values: QuoteValues) => {
+    setError(null);
 
-    // TODO: remplacer par un envoi serveur (route handler + Resend/Brevo).
-    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
-      `Demande de devis — ${values.company}`,
-    )}&body=${encodeURIComponent(body)}`;
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...values, kind: "quote" }),
+      });
 
-    setSent(true);
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        setError(data?.error ?? "L'envoi a échoué. Réessayez dans un instant.");
+        return;
+      }
+
+      setSent(true);
+    } catch {
+      setError(
+        "Impossible de joindre le serveur. Vérifiez votre connexion et réessayez.",
+      );
+    }
   };
 
   if (sent) {
@@ -145,18 +133,19 @@ export function QuoteForm() {
       <div className="flex flex-col items-start gap-4 rounded-3xl border border-line bg-mist p-8 md:p-12">
         <CheckCircle2 className="size-8 text-primary" />
         <h2 className="font-display text-2xl font-bold text-ink">
-          Demande prête à être envoyée
+          Demande envoyée
         </h2>
         <p className="max-w-md text-[0.9375rem] leading-relaxed text-ink-soft">
-          Votre messagerie s&apos;est ouverte avec le récapitulatif. Si rien ne
-          s&apos;est passé, envoyez-le à{" "}
+          Merci, nous avons bien reçu votre demande de devis. Vous recevrez une
+          réponse chiffrée sous 24&nbsp;heures ouvrées. Besoin d&apos;ajouter une
+          pièce jointe&nbsp;? Écrivez-nous à{" "}
           <a
             href={`mailto:${site.email}`}
             className="font-medium text-primary hover:underline"
           >
             {site.email}
           </a>
-          . Réponse sous 48&nbsp;heures.
+          .
         </p>
         <Button
           variant="outline"
@@ -201,6 +190,15 @@ export function QuoteForm() {
         noValidate
         className="flex flex-col gap-8 p-6 md:p-10"
       >
+        {/* Champ piège anti-bots : invisible et hors du parcours clavier. */}
+        <input
+          {...register("website")}
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          className="hidden"
+          aria-hidden="true"
+        />
         {/* Étape 1 --------------------------------------------------------- */}
         {step === 0 && (
           <div className="flex flex-col gap-8">
@@ -391,13 +389,32 @@ export function QuoteForm() {
           </div>
         )}
 
+        {error && (
+          <div
+            role="alert"
+            className="flex items-start gap-3 rounded-2xl border border-destructive/30 bg-destructive/5 p-4"
+          >
+            <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />
+            <p className="text-sm leading-relaxed text-ink-soft">
+              {error} Vous pouvez aussi nous écrire à{" "}
+              <a
+                href={`mailto:${site.email}`}
+                className="font-medium text-primary hover:underline"
+              >
+                {site.email}
+              </a>
+              .
+            </p>
+          </div>
+        )}
+
         {/* Navigation ------------------------------------------------------ */}
         <div className="flex items-center justify-between gap-4 border-t border-line pt-6">
           <Button
             type="button"
             variant="ghost"
             onClick={() => setStep((current) => Math.max(current - 1, 0))}
-            disabled={step === 0}
+            disabled={step === 0 || isSubmitting}
             className={step === 0 ? "invisible" : ""}
           >
             <ArrowLeft className="size-4" />
@@ -410,9 +427,15 @@ export function QuoteForm() {
               <ArrowRight className="size-4" />
             </Button>
           ) : (
-            <Button type="submit" size="lg">
-              Envoyer ma demande
-              <Send className="size-4" />
+            <Button type="submit" size="lg" disabled={isSubmitting}>
+              {isSubmitting ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : (
+                <>
+                  Envoyer ma demande
+                  <Send className="size-4" />
+                </>
+              )}
             </Button>
           )}
         </div>

@@ -7,7 +7,7 @@ import { site } from "@/data/site";
 
 export function CtaBand({
   title = "Prêt à passer à l'action ?",
-  description = "Décrivez-nous votre projet en quelques lignes. Nous revenons vers vous sous 48 heures avec une proposition claire et chiffrée.",
+  description = "Décrivez-nous votre projet en quelques lignes. Nous revenons vers vous sous 24 heures avec une proposition claire et chiffrée.",
 }: {
   title?: string;
   description?: string;
