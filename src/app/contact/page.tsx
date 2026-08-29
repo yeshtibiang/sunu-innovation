@@ -10,7 +10,7 @@ import { site } from "@/data/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contactez Sunu Inovation : e-mail, téléphone et formulaire. Réponse sous 48 heures.",
+    "Contactez Sunu Innovation : e-mail, téléphone et formulaire. Réponse sous 48 heures.",
 };
 
 const infos = [

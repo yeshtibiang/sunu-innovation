@@ -4,7 +4,7 @@ export const aboutSections = [
     eyebrow: "01 — Présentation",
     title: "Qui sommes-nous ?",
     paragraphs: [
-      "Sunu Inovation est une agence spécialisée en marketing digital, social media management, infographie, création de sites web et formations certifiantes.",
+      "Sunu Innovation est une agence spécialisée en marketing digital, social media management, infographie, création de sites web et formations certifiantes.",
       "Nous accompagnons les entreprises, les institutions, les leaders industriels et les start-ups dans le développement de leurs activités, avec des solutions innovantes et adaptées à leurs besoins réels.",
       "Avec une équipe passionnée et un réseau de partenaires solides, nous vous aidons à relever vos défis de communication et à maximiser l'impact de chaque initiative.",
     ],

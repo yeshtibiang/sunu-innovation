@@ -9,7 +9,7 @@ import { site } from "@/data/site";
 export const metadata: Metadata = {
   title: "Demander un devis",
   description:
-    "Décrivez votre projet en trois étapes : Sunu Inovation vous répond sous 48 heures avec une proposition chiffrée.",
+    "Décrivez votre projet en trois étapes : Sunu Innovation vous répond sous 48 heures avec une proposition chiffrée.",
 };
 
 const guarantees = [

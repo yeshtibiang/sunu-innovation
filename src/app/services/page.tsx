@@ -10,7 +10,7 @@ import { services } from "@/data/services";
 export const metadata: Metadata = {
   title: "Nos services",
   description:
-    "Marketing digital, social media, infographie, création de site web, stratégie digitale et formations certifiantes : les six expertises de Sunu Inovation.",
+    "Marketing digital, social media, infographie, création de site web, stratégie digitale et formations certifiantes : les six expertises de Sunu Innovation.",
 };
 
 export default function ServicesPage() {

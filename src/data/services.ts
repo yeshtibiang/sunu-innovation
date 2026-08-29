@@ -57,7 +57,7 @@ export const services: Service[] = [
     image: "/images/services/social-media.svg",
     featured: true,
     intro: [
-      "Chez Sunu Inovation, le social media management dépasse la simple gestion de comptes : c'est une véritable stratégie de communication digitale.",
+      "Chez Sunu Innovation, le social media management dépasse la simple gestion de comptes : c'est une véritable stratégie de communication digitale.",
       "Nous prenons en charge vos réseaux de bout en bout — ligne éditoriale, création de contenus visuels et rédactionnels, calendrier de publication, modération et reporting — pour transformer votre audience en communauté engagée.",
     ],
     deliverables: [

@@ -108,7 +108,7 @@ export function Hero() {
               />
               <Image
                 src="/images/hero.png"
-                alt="Illustration de l'accompagnement digital par Sunu Inovation"
+                alt="Illustration de l'accompagnement digital par Sunu Innovation"
                 width={900}
                 height={760}
                 priority

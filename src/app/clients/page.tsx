@@ -11,7 +11,7 @@ import { caseStudies } from "@/data/clients";
 export const metadata: Metadata = {
   title: "Nos clients",
   description:
-    "Découvrez les réalisations de Sunu Inovation : campagnes, identités visuelles et dispositifs digitaux pour des marques d'Afrique de l'Ouest et centrale.",
+    "Découvrez les réalisations de Sunu Innovation : campagnes, identités visuelles et dispositifs digitaux pour des marques d'Afrique de l'Ouest et centrale.",
 };
 
 export default function ClientsPage() {
@@ -39,7 +39,7 @@ export default function ClientsPage() {
                   <div className="relative aspect-square overflow-hidden rounded-3xl border border-line bg-mist">
                     <Image
                       src={study.image}
-                      alt={`${study.client} — réalisation Sunu Inovation`}
+                      alt={`${study.client} — réalisation Sunu Innovation`}
                       fill
                       sizes="(min-width: 1024px) 48vw, 92vw"
                       className="object-cover"

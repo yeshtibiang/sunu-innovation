@@ -18,7 +18,7 @@ import { site } from "@/data/site";
 export const metadata: Metadata = {
   title: "L'équipe",
   description:
-    "Rencontrez l'équipe Sunu Inovation : social media, développement web et design graphique.",
+    "Rencontrez l'équipe Sunu Innovation : social media, développement web et design graphique.",
 };
 
 export default function TeamPage() {

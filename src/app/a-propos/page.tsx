@@ -18,7 +18,7 @@ import { site } from "@/data/site";
 export const metadata: Metadata = {
   title: "L'agence",
   description:
-    "Sunu Inovation : qui sommes-nous, notre vision, nos valeurs et notre mission. Une agence digitale 360° basée à Dakar.",
+    "Sunu Innovation : qui sommes-nous, notre vision, nos valeurs et notre mission. Une agence digitale 360° basée à Dakar.",
 };
 
 export default function AboutPage() {

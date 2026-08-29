@@ -7,7 +7,7 @@ type LogoProps = {
 };
 
 /**
- * Marque Sunu Inovation — un « S » stylisé formé de deux arcs qui
+ * Marque Sunu Innovation — un « S » stylisé formé de deux arcs qui
  * s'imbriquent, dans le dégradé signature (orange → jaune).
  */
 export function LogoMark({ className }: { className?: string }) {
@@ -61,7 +61,7 @@ export function Logo({
             )}
           >
             {" "}
-            Inovation
+            Innovation
           </span>
           <span className="text-primary">.</span>
         </span>

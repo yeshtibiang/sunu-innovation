@@ -1,20 +1,20 @@
-# Sunu Inovation — site web
+# Sunu Innovation — site web
 
-Site vitrine de l'agence **Sunu Inovation**, reconstruit de zéro en Next.js.
+Site vitrine de l'agence **Sunu Innovation**, reconstruit de zéro en Next.js.
 Seuls les **couleurs** et les **polices** de l'ancien projet React/Vite ont été
 conservés : tout le reste du design (mise en page, composants, navigation,
 animations) est nouveau.
 
 ## Stack
 
-| Élément     | Choix                                                   |
-| ----------- | ------------------------------------------------------- |
-| Framework   | Next.js 16 (App Router, React 19, TypeScript)           |
-| Styles      | Tailwind CSS v4 (tokens dans `src/app/globals.css`)     |
-| Composants  | shadcn/ui (Radix UI) — `src/components/ui`              |
-| Icônes      | lucide-react                                            |
-| Formulaires | react-hook-form + zod                                   |
-| Polices     | @fontsource (auto-hébergées, aucun appel à Google)      |
+| Élément     | Choix                                               |
+| ----------- | --------------------------------------------------- |
+| Framework   | Next.js 16 (App Router, React 19, TypeScript)       |
+| Styles      | Tailwind CSS v4 (tokens dans `src/app/globals.css`) |
+| Composants  | shadcn/ui (Radix UI) — `src/components/ui`          |
+| Icônes      | lucide-react                                        |
+| Formulaires | react-hook-form + zod                               |
+| Polices     | @fontsource (auto-hébergées, aucun appel à Google)  |
 
 ## Démarrage
 
@@ -32,17 +32,17 @@ Tous les tokens sont définis dans `src/app/globals.css`, dans le bloc `@theme`.
 
 **Couleurs (reprises de l'ancien projet)**
 
-| Token          | Valeur    | Usage                                  |
-| -------------- | --------- | -------------------------------------- |
-| `primary`      | `#ed6f1c` | CTA, liens, accents                    |
-| `primary-dark` | `#c85a12` | survol des boutons                     |
-| `secondary`    | `#f9cf5d` | surlignages, ponctuation               |
-| `ink`          | `#1b1b1a` | texte principal, sections sombres      |
-| `ink-soft`     | `#4a4744` | texte courant                          |
-| `ink-muted`    | `#857f78` | légendes, libellés mono                |
-| `paper`        | `#ffffff` | fond principal                         |
-| `mist`         | `#f6f4f1` | fond des sections alternées            |
-| `line`         | `#e6e1da` | filets et bordures (1 px)              |
+| Token          | Valeur    | Usage                             |
+| -------------- | --------- | --------------------------------- |
+| `primary`      | `#ed6f1c` | CTA, liens, accents               |
+| `primary-dark` | `#c85a12` | survol des boutons                |
+| `secondary`    | `#f9cf5d` | surlignages, ponctuation          |
+| `ink`          | `#1b1b1a` | texte principal, sections sombres |
+| `ink-soft`     | `#4a4744` | texte courant                     |
+| `ink-muted`    | `#857f78` | légendes, libellés mono           |
+| `paper`        | `#ffffff` | fond principal                    |
+| `mist`         | `#f6f4f1` | fond des sections alternées       |
+| `line`         | `#e6e1da` | filets et bordures (1 px)         |
 
 Les tokens sémantiques attendus par shadcn/ui (`background`, `foreground`,
 `muted`, `border`, `ring`…) pointent vers ces mêmes valeurs : `npx shadcn add …`

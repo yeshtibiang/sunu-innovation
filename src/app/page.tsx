@@ -182,7 +182,7 @@ export default function HomePage() {
                     <div className="relative aspect-square overflow-hidden bg-mist">
                       <Image
                         src={study.image}
-                        alt={`${study.client} — réalisation Sunu Inovation`}
+                        alt={`${study.client} — réalisation Sunu Innovation`}
                         fill
                         sizes="(min-width: 1024px) 32vw, (min-width: 640px) 46vw, 92vw"
                         className="object-cover transition-transform duration-500 group-hover:scale-105"

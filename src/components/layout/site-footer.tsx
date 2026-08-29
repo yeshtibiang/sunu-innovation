@@ -102,7 +102,7 @@ export function SiteFooter() {
         <div className="flex flex-col gap-6 border-t border-white/10 py-10 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="font-display text-lg font-semibold">
-              La newsletter Sunu Inovation
+              La newsletter Sunu Innovation
             </p>
             <p className="mt-1 text-sm text-white/55">
               Une fois par mois : nos analyses et retours d&apos;expérience. Sans
